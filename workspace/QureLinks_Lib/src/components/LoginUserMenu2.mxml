@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:lib="assets.graphics.user.*"
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 xmlns:components="components.*"
+		 width="520" height="360">
+	<fx:Script>
+		<![CDATA[
+			
+			import logic.config.DefineNetConnection;
+			
+			protected function enterRoomClickHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.logic.new_login_menu_btn1OnClickHandler(null);
+				this.visible = false;
+			}
+
+			protected function returnToTopHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.currentState='ChatEnd';
+				this.visible = false;
+				navigateToURL( new URLRequest( encodeURI("http://" + DefineNetConnection.url_amebastudio + "/index.cgi")), "_self");
+			}
+		]]>
+
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="State1"/>
+	</s:states>
+	
+	<!-- 背景 -->
+	<s:BitmapImage id="login_bg" x="0" y="0" source="@Embed('/assets/images/user/otameshi_end_bg.png')" />
+	<s:BitmapImage id="login_bg_txt" x="32" y="7" source="@Embed('/assets/images/user/otameshi_end_text_a.png')" />
+	
+	<!-- 入室 -->
+	<s:Button id="login_btn" visible="true" x="41" y="219"
+			  skinClass="components.EnterRoomBtn_ButtonSkin" buttonMode="true"
+			  useHandCursor="true" click="enterRoomClickHandler()"/>
+	<!-- TOPへ戻る -->
+	<s:Button id="new_login_menu_btn2" visible="true" x="199" y="308"
+			  skinClass="components.MuryoTopBtn_Skin" buttonMode="true"
+			  useHandCursor="true" click="returnToTopHandler()" />
+
+</s:Group>

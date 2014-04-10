@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+				width="400" height="42" 
+				autoDrawBackground="true"
+				>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			protected function changeCheckBox(event:Event,data:Object):void
+			{
+				mx.core.FlexGlobals.topLevelApplication.logic.chatCheck(event,data);
+			}
+
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				if (value != null)
+				{
+					if (value.msgCheck != null)
+					{
+//						chatMsgCheckBox.selected = value.msgCheck;
+					}
+					if (value.msgNo.length == 0)
+					{
+//						chatMsgCheckBox.visible = false;
+					}
+					else
+					{
+//						chatMsgCheckBox.visible = true;
+					}
+					
+					if(value.msgColor != null)
+					{
+						this.sendChatMsg.setStyle("color", value.msgColor);
+					}
+					
+				}
+			}
+		]]>
+	</fx:Script>
+
+	
+<!--	<s:Rect x="0.5" y="0.5" width="265" height="42">
+		<s:stroke>
+			<s:SolidColorStroke caps="none" color="#5C5C5C" joints="miter" 
+								miterLimit="4" weight="1"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="#FFFFFF"/>
+		</s:fill>
+	</s:Rect>-->
+	
+<!--	<s:Rect d:userLabel="アイテムの背景" left="0" right="0" top="0" bottom="0" >
+		<s:fill>
+			<s:SolidColor id="backColor" color="0xCEFFEE" />
+		</s:fill>
+	</s:Rect>
+-->	
+	<s:Rect d:userLabel="アイテムのハイライト" left="0" right="0" top="0" bottom="0"
+			alpha.hovered="0.3"
+			alpha.normal="0"
+			alpha.selected="0.5">
+		<s:fill>
+			<s:SolidColor color="0xCED7EE"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:HGroup gap="0" verticalAlign="middle">
+		<s:Spacer width="5"/>
+<!--
+		<s:CheckBox id="chatMsgCheckBox"
+					selected="{data.msgCheck}" 
+					change="{changeCheckBox(event,data)}"
+					/>
+-->
+		<s:Label id="sendChatMsg" text="{data.msg}" color="{data.msgColor}" fontSize="16" fontFamily="ＭＳ Ｐゴシック"/>
+	</s:HGroup>
+	
+</s:ItemRenderer>

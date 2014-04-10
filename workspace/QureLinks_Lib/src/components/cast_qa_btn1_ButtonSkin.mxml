@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:lib="assets.graphics.cast.*"
+		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		width="78" height="43">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<lib:cast_qa_btn01 d:userLabel="cast_qa_btn1" includeIn="disabled,down,up" x="0" y="0"/>
+	<s:BitmapImage includeIn="disabled,down,over" x="0" y="0" smooth="true"
+				   source="@Embed('/assets/images/cast/question_btn_send-over.png')"/>
+</s:Skin>

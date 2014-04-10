@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:lib="assets.graphics.user.*"
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 xmlns:components="components.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:clogic="components.logic.*"
+		 width="520" height="600"
+		 contentBackgroundAlpha="0.0" >
+	
+	<fx:Declarations>
+		<clogic:TelInfo_Qa_Logic id="logic" />
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import spark.filters.*;
+		]]>
+	</fx:Script>
+	
+	<!-- グローフィルターアニメーション -->
+	<fx:Declarations>
+		<!-- 抽選中 -->
+		<s:AnimateFilter id="selectFilter" 
+						 target="{selectImage}"
+						 repeatCount="0"
+						 duration="500" 
+						 repeatBehavior="reverse"
+						 bitmapFilter="{new spark.filters.GlowFilter(0x0000FF, 0.5, 16, 16, 2, 2 )}">
+			<s:SimpleMotionPath property="blurX" valueFrom="0" valueTo="32"/>
+			<s:SimpleMotionPath property="blurY" valueFrom="0" valueTo="32"/>
+		</s:AnimateFilter>
+		
+		<!-- 呼び出し中 -->
+		<s:AnimateFilter id="callFilter" 
+						 target="{callImage}"
+						 repeatCount="0"
+						 duration="500" 
+						 repeatBehavior="reverse"
+						 bitmapFilter="{new spark.filters.GlowFilter(0x0000FF, 0.5, 16, 16, 2, 2 )}">
+			<s:SimpleMotionPath property="blurX" valueFrom="0" valueTo="32"/>
+			<s:SimpleMotionPath property="blurY" valueFrom="0" valueTo="32"/>
+		</s:AnimateFilter>
+		
+		<!-- 話し中 -->
+		<s:AnimateFilter id="speakFilter" 
+						 target="{speakImage}"
+						 repeatCount="0"
+						 duration="500" 
+						 repeatBehavior="reverse"
+						 bitmapFilter="{new spark.filters.GlowFilter(0x0000FF, 0.5, 16, 16, 2, 2 )}">
+			<s:SimpleMotionPath property="blurX" valueFrom="0" valueTo="32"/>
+			<s:SimpleMotionPath property="blurY" valueFrom="0" valueTo="32"/>
+		</s:AnimateFilter>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="EntryStart" />
+		<s:State name="SelectStart" />
+		<s:State name="Selecting" />
+		<s:State name="Selected_Free" />
+		<s:State name="Selected_Pay" />
+		<s:State name="Calling_Free" />
+		<s:State name="Calling_Pay" />
+		<s:State name="Speaking_Free" />
+		<s:State name="Speaking_Pay" />
+		<s:State name="QAState" />
+	</s:states>
+	
+	<!-- 生電話 -->
+	<s:Group 
+		includeIn="EntryStart,SelectStart,Selecting,Selected_Free,Selected_Pay,Calling_Free,Calling_Pay,Speaking_Free,Speaking_Pay"
+		id="telGroup"
+		x="0" y="0" >
+		<!-- 生電話タブ -->
+		<s:BitmapImage 
+			includeIn="EntryStart,SelectStart,Selecting,Selected_Free,Selected_Pay,Calling_Free,Calling_Pay,Speaking_Free,Speaking_Pay" 
+			x="0" y="430" 
+			source="@Embed('/assets/images/cast/tab1.png')"/>
+		
+		<!-- エントリー背景 -->
+		<s:BitmapImage 
+			includeIn="EntryStart" 
+			x="37" y="434" 
+			source="@Embed('/assets/images/cast/base_0.png')"/>
+		
+		<!-- エントリー開始ボタン -->
+		<s:Button 
+			includeIn="EntryStart"
+			id="entryStartBtn"
+			x="74" y="550" 
+			skinClass="components.EntryStartBtnSkin" />
+		
+		<!-- 背景 -->
+		<s:BitmapImage 
+			includeIn="SelectStart,Selecting,Selected_Free,Selected_Pay,Calling_Free,Calling_Pay,Speaking_Free,Speaking_Pay" 
+			x="37" y="434" 
+			source="@Embed('/assets/images/cast/base_1.png')"/>
+		
+		<!-- 生電話注意書き文言 -->
+		<s:BitmapImage includeIn="SelectStart,Selecting"
+					   x="63" y="510" source="@Embed('/assets/images/cast/txt_7.png')" />
+		
+		<!-- 「イヤホンをつけてください」文言 -->
+		<s:BitmapImage includeIn="Selected_Free,Selected_Pay,Calling_Free,Calling_Pay,Speaking_Free,Speaking_Pay"
+					   x="63" y="520" source="@Embed('/assets/images/cast/txt_8.png')" />
+		
+		<!-- メッセージエリア -->
+		<s:Label id="mess"
+				 includeIn="SelectStart,Selecting,Selected_Free,Selected_Pay,Calling_Free,Calling_Pay,Speaking_Free,Speaking_Pay"
+				 x="72" y="480" width="410" height="26" color="#FFFFFF" fontFamily="ＭＳ Ｐゴシック"
+				 fontSize="20" textAlign="center" verticalAlign="middle"
+				 text.Calling_Free="{logic.messBind}"
+				 text.Calling_Pay="{logic.messBind}"
+				 text.Selected_Free="{logic.messBind}"
+				 text.Selected_Pay="{logic.messBind}"
+				 text.Selecting="{logic.messBind}"
+				 text.SelectStart="{logic.messSelectStartBind}"
+				 text.Speaking_Free="{logic.messBind}"
+				 text.Speaking_Pay="{logic.messBind}"/>
+		
+		<!-- エントリー中止ボタン -->
+		<s:Button 
+			includeIn="SelectStart"
+			id="entryStopBtn"
+			x="65" y="550" 
+			skinClass="components.EntryStopBtnSkin" />
+		
+		<!-- エントリー受付終了ボタン -->
+		<s:Button 
+			includeIn="SelectStart"
+			id="selectStartBtn"
+			x="195" y="550" 
+			skinClass="components.SelectStartBtnSkin" 
+			enabled="{logic.enabledSelectStartBind}" />
+		
+		<!-- 背景 -->
+		<s:BitmapImage 
+			includeIn="SelectStart"
+			x="396" y="548" 
+			source="@Embed('/assets/images/cast/fukidashi.png')"/>
+		
+		<!-- 画面内抽選中イメージ -->
+		<s:BitmapImage 
+			includeIn="Selecting" 
+			id="selectImage"
+			x="420" y="44" 
+			source="@Embed('/assets/images/cast/under_lottery.png')"/>
+		
+		<!-- 画面内呼び出し中イメージ -->
+		<s:BitmapImage includeIn="Calling_Free,Calling_Pay" 
+					   id="callImage"
+					   x="400" y="44"
+					   source="@Embed('/assets/images/cast/call.png')"
+					   />
+		
+		<!-- 画面内通話中イメージ -->
+		<s:BitmapImage includeIn="Speaking_Free,Speaking_Pay" 
+					   id="speakImage"
+					   x="400" y="44"
+					   source="@Embed('/assets/images/cast/telephone.png')"
+					   />
+		
+		<!-- 画面内内緒話イメージ -->
+		<s:BitmapImage includeIn="Speaking_Pay" x="419" y="73"
+					   source="@Embed('/assets/images/cast/call_secret.png')"
+					   />
+		
+		<!-- 吹き出し画像（無料） -->
+		<s:BitmapImage 
+			includeIn="Selected_Free,Calling_Free,Speaking_Free" 
+			x="84" y="431" 
+			source="@Embed('/assets/images/cast/Blow_usually.png')"/>
+		
+		<!-- 吹き出し画像（有料） -->
+		<s:BitmapImage 
+			includeIn="Selected_Pay,Calling_Pay,Speaking_Pay" 
+			x="84" y="431" 
+			source="@Embed('/assets/images/cast/Blow_secret.png')"/>
+		
+		<!-- 吹き出し文言（有料・無料） -->
+		<s:Label 
+			includeIn="Selected_Free,Selected_Pay,Calling_Free,Calling_Pay,Speaking_Free,Speaking_Pay"
+			text="{logic.messSubBind}"
+			x="101" y="440" width="350" height="20" 
+			color="#FFFFFF" fontFamily="ＭＳ Ｐゴシック" fontSize="15" textAlign="center" verticalAlign="middle" />
+		
+		<!-- 通話終了ボタン -->
+		<s:Button id="speakEndBtn" includeIn="Speaking_Free,Speaking_Pay" 
+				  x="142" y="547"
+				  skinClass="components.TelEndBtnSkin"
+				  />
+		
+		<!-- 追放ボタン -->
+		<s:Button id="kickOutBtn" includeIn="Speaking_Free,Speaking_Pay" 
+				  x="290" y="547"
+				  skinClass="components.kickOutBtnSkin"
+				  />
+		
+		<!-- カウントダウン画像 -->
+		<s:BitmapImage includeIn="Speaking_Free,Speaking_Pay" x="403" y="342"
+					   source="@Embed('/assets/images/cast/timer.png')"
+					   />
+		
+		<!-- カウントダウン値 -->
+		<s:Label id="countMess" includeIn="Speaking_Free,Speaking_Pay" x="439" y="344" width="30"
+				 height="30" color="#000000" fontFamily="ＭＳ Ｐゴシック" fontSize="24" fontWeight="bold"
+				 text="{logic.telTimeValue.toString()}" textAlign="right" verticalAlign="middle"
+				 />
+		
+	</s:Group>
+	
+	<!-- アンケート -->
+	<s:Group id="qaInfo" x="0" y="430" width="520" height="170" includeIn="QAState" itemDestructionPolicy="never">
+		<!-- アンケートタブ -->
+		<s:BitmapImage 
+			x="0" y="0" 
+			source="@Embed('/assets/images/cast/tab2.png')"/>
+		
+		<!-- 出題する -->
+		<s:Button id="castQaBtn" d:userLabel="cast_qa_btn1_ButtonSkin" x="430" y="12"
+				  skinClass="components.cast_qa_btn1_ButtonSkin" visible="true" buttonMode="true" />
+		<!-- 結果を表示する -->
+		<s:Button id="castQaResultBtn" d:userLabel="cast_qa_btn2_ButtonSkin" x="430" y="62"
+				  skinClass="components.cast_qa_btn2_ButtonSkin" visible="false" buttonMode="true" />
+		<!-- 結果を消す -->
+		<s:Button id="castQaResultDeleteBtn" d:userLabel="cast_qa_btn3_ButtonSkin" x="430" y="112"
+				  skinClass="components.cast_qa_btn3_ButtonSkin" visible="false" buttonMode="true" />
+		
+		<!-- 質問文 -->
+		<s:TextInput id="castQaQuestion" x="96" y="13" skinClass="components.Question_TextInputSkin" />
+		<!-- 選択肢 -->
+		<s:TextInput id="castQaSelect1" x="96" y="43" skinClass="components.Question_TextInputSkin" />
+		<s:TextInput id="castQaSelect2" x="96" y="73" skinClass="components.Question_TextInputSkin" />
+		<s:TextInput id="castQaSelect3" x="96" y="103" skinClass="components.Question_TextInputSkin" />
+		<s:TextInput id="castQaSelect4" x="96" y="133" skinClass="components.Question_TextInputSkin" />
+	</s:Group>
+
+	<!-- 切り替えボタン -->
+	<s:Group x="0" y="430">
+		<s:layout>
+			<s:VerticalLayout gap="0" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
+		</s:layout>
+		<s:Button id="liveTelTabBtn" buttonMode="true" height="82.5" width="33"
+				   alpha="0" />
+		<s:Button id="qaTabBtn" buttonMode="true" height="82.5" width="33" 
+				   alpha="0" />
+	</s:Group>
+	
+	
+</s:Group>

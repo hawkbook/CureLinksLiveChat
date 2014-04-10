@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" xmlns:flm="http://ns.adobe.com/flame/2008" version="2.0">
+	<Library>
+		<Definition name="muryo100_btn_top">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/muryo100_btn_top.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+		<Definition name="muryo100_btn_enter">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/muryo100_btn_enter.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+	</Library>
+	<Group d:userLabel="レイヤー 1">
+		<BitmapImage source="@Embed('../../images/user/muryo100_bg.png')"/>
+		<BitmapImage source="@Embed('../../images/user/muryo100_text.png')" x="50" y="29"/>
+		<muryo100_btn_top x="107" y="112" d:userLabel="muryo100_btn_top"/>
+		<muryo100_btn_enter x="29" y="155" d:userLabel="muryo100_btn_enter"/>
+	</Group>
+</Graphic>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" xmlns:flm="http://ns.adobe.com/flame/2008" version="2.0">
+	<Library>
+		<Definition name="point_err_menu_chenge_btn">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/btn_point_change.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+		<Definition name="point_err_menu_yes_btn">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/btn_close.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+	</Library>
+	<Group d:userLabel="レイヤー 1">
+		<BitmapImage source="@Embed('../../images/user/alert_bg.png')"/>
+		<RichText xmlns:pd="http://ns.adobe.com/xfl/2008/pd" x="27" y="19" color="#000000" fontFamily="Arial" lineBreak="explicit" locale="ja_JP" paddingBottom="2" paddingLeft="2" paddingRight="2" paddingTop="2" whiteSpaceCollapse="preserve" pd:antiAlias="advanced" pd:editPolicy="readOnly" pd:embedFonts="1" pd:multiline="0" pd:textInstanceName="point_err_msg2" d:userLabel="ポイントが不足しています。" width="300" height="28">
+			<content><p textAlign="center"><span fontSize="20" kerning="off" lineHeight="110%" color="#FFFFFF" fontFamily="ＭＳ Ｐゴシック">ポイントが不足しています。</span></p></content>
+		</RichText>
+		<point_err_menu_chenge_btn x="17" y="94" d:userLabel="point_err_menu2_chenge_btn"/>
+		<point_err_menu_yes_btn x="118" y="55" d:userLabel="point_err_menu2_yes_btn"/>
+	</Group>
+</Graphic>

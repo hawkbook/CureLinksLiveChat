@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:lib="assets.graphics.user.*"
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 xmlns:components="components.*"
+		 width="351" height="132">
+	<fx:Script>
+		<![CDATA[
+			
+			import logic.config.DefineNetConnection;
+
+			protected function button_clickHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.currentState='ChatEnd';
+				this.visible = false;
+				
+				navigateToURL( new URLRequest( encodeURI("http://" + DefineNetConnection.url_amebastudio + "/index.cgi")), "_self");
+				
+			}
+
+			protected function button_clickHandler_1():void
+			{
+				this.visible = false;
+			}
+
+		]]>
+
+	</fx:Script>
+	<s:states>
+		<s:State name="State1"/>
+	</s:states>
+	<s:BitmapImage includeIn="State1" x="0" y="0" smooth="true"
+				   source="@Embed('/assets/images/user/alert_bg.png')"/>
+	<s:Label xmlns:pd="http://ns.adobe.com/xfl/2008/pd"
+			 d:userLabel="視聴を終了しますか？" x="18" y="21" width="309" height="24" pd:antiAlias="normal"
+			 color="#ffffff" fontFamily="ＭＳ Ｐゴシック" locale="ja_JP" paddingBottom="2" paddingLeft="2"
+			 paddingRight="2" paddingTop="2"
+			 x.State1="18" y.State1="35" fontSize.State1="20" textAlign.State1="center"
+			 text.State1="視聴を終了しますか？"/>
+	<s:Button includeIn="State1" x="44" y="83" label="ボタン" click="button_clickHandler()"
+			  skinClass="components.alert_btn_yes_Skin"/>
+	<s:Button includeIn="State1" x="183" y="83" label="ボタン" click="button_clickHandler_1()"
+			  skinClass="components.alert_btn_no_Skin"/>
+</s:Group>

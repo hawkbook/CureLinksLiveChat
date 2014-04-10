@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:lib="assets.graphics.user.*"
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 xmlns:components="components.*"
+		 width="452" height="216">
+	<fx:Script>
+		<![CDATA[
+			
+/* 			import logic.config.DefineNetConnection;
+
+			protected function button_clickHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.currentState='ChatEnd';
+				this.visible = false;
+				
+//				navigateToURL( new URLRequest( encodeURI("http://" + DefineNetConnection.url_amebastudio + "/index.cgi")), "_self");
+				
+			}
+
+			protected function button_clickHandler_1():void
+			{
+				this.visible = false;
+			}
+ */			
+		]]>
+
+	</fx:Script>
+	<s:states>
+		<s:State name="State1"/>
+	</s:states>
+	<s:BitmapImage includeIn="State1" x="0" y="0" smooth="true"
+				   source="@Embed('/assets/images/user/syuryo_bg.png')"/>
+	<s:Label xmlns:pd="http://ns.adobe.com/xfl/2008/pd"
+			 d:userLabel="終了" x="81" y="85" width="306" height="44" pd:antiAlias="normal"
+			 color="#ffffff" fontFamily="ＭＳ Ｐゴシック" fontWeight="bold" locale="ja_JP"
+			 paddingBottom="2" paddingLeft="2" paddingRight="2" paddingTop="2"
+			 fontSize="28" textAlign="center"
+			 text="セッションが終了しました"/>
+<!--	<s:Button includeIn="State1" x="86" y="93" label="ボタン" click="button_clickHandler()"
+			  skinClass="components.Syuryo_btn_Skin"/>
+-->
+</s:Group>

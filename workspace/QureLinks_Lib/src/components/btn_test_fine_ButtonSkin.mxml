@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:lib="assets.graphics.cast.*"
+		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		xmlns:graphics="assets.graphics.*"
+		width="160" height="95">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+		]]>
+
+	</fx:Script>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Group d:userLabel="レイヤー 1" includeIn="disabled,up" x="0" y="0">
+		<s:BitmapImage x="0" y="0" smooth="true" source="@Embed('/assets/images/cast/btn_test_fine.png')"/>
+	</s:Group>
+	<s:BitmapImage includeIn="down,over" x="0" y="0" smooth="true" source="@Embed('/assets/images/cast/btn_test_fine-over.png')"/>
+</s:Skin>

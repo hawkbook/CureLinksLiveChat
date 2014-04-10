@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:lib="assets.graphics.user.*"
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 xmlns:components="components.*"
+		 width="351" height="241">
+	<fx:Script>
+		<![CDATA[
+			import logic.config.DefineNetConnection;
+			
+			import mx.core.FlexGlobals;
+
+			protected function button_yes_clickHandler():void
+			{
+				this.visible = false;
+			}
+
+			protected function button_top_clickHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.currentState='ChatEnd';
+				this.visible = false;
+				navigateToURL( new URLRequest( encodeURI("http://" + DefineNetConnection.url_amebastudio + "/index.cgi")), "_self");
+				this.visible = false;
+			}
+
+			protected function button_muryo_enter_clickHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.logic.gotoRoom();
+				this.visible = false;
+			}
+			
+		]]>
+
+	</fx:Script>
+	<s:states>
+		<s:State name="State1"/>
+	</s:states>
+	<s:BitmapImage includeIn="State1" x="0" y="0" smooth="true"
+				   source="@Embed('/assets/images/user/muryo100_bg.png')"/>
+	<s:BitmapImage includeIn="State1" x="50" y="29" smooth="true"
+				   source="@Embed('/assets/images/user/muryo100_text.png')"/>
+	<s:Button includeIn="State1" x="107" y="112" label="ボタン" 
+			  click="button_top_clickHandler()"
+			  skinClass="components.MuryoTopBtn_Skin"/>
+	<s:Button includeIn="State1" id="muryoEnterBtn"
+			  x="29" y="155" label="ボタン" 
+			  click="button_muryo_enter_clickHandler()"
+			  skinClass="components.Muryo100EnterBtn_Skin"/>
+</s:Group>

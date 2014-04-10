@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" xmlns:flm="http://ns.adobe.com/flame/2008" version="2.0">
+	<Library>
+		<Definition name="otamesi_mask_btn2">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/otameshi_btn_top.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+		<Definition name="new_login_menu2_btn1">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/otameshi_end_btn.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+		<Definition name="new_login_menu2_text1">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/otameshi_end_text_a.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+		<Definition name="new_login_menu2_text2">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/otameshi_end_text_b.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+	</Library>
+	<Group d:userLabel="レイヤー 1">
+		<BitmapImage source="@Embed('../../images/user/otameshi_end_bg.png')"/>
+		<otamesi_mask_btn2 x="182" y="319" d:userLabel="new_login_menu2_btn2"/>
+		<new_login_menu2_btn1 x="41" y="219" d:userLabel="new_login_menu2_btn1"/>
+		<new_login_menu2_text1 x="36" y="7" d:userLabel="new_login_menu2_text1"/>
+		<new_login_menu2_text2 x="36" y="42" d:userLabel="new_login_menu2_text2"/>
+	</Group>
+</Graphic>

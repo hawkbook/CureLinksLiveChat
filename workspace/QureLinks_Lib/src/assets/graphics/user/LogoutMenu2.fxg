@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" xmlns:flm="http://ns.adobe.com/flame/2008" version="2.0">
+	<Library>
+		<Definition name="LogoutMenu2_jump_btn">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/syuryo_btn.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+	</Library>
+	<Group d:userLabel="レイヤー 1">
+		<BitmapImage source="@Embed('../../images/user/syuryo_bg.png')"/>
+		<RichText x="80" y="36" color="#000000" fontFamily="Arial" lineBreak="explicit" locale="ja_JP" paddingBottom="2" paddingLeft="2" paddingRight="2" paddingTop="2" whiteSpaceCollapse="preserve" d:userLabel="放送が終了しました" width="300" height="28">
+			<content><p textAlign="center"><span fontSize="20" kerning="off" lineHeight="110%" color="#FFFFFF" fontFamily="ＭＳ Ｐゴシック">放送が終了しました</span></p></content>
+		</RichText>
+		<LogoutMenu2_jump_btn x="86" y="93" d:userLabel="LogoutMenu2_jump_btn"/>
+	</Group>
+</Graphic>

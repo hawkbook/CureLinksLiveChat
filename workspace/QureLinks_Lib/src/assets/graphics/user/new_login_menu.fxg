@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" xmlns:flm="http://ns.adobe.com/flame/2008" version="2.0">
+	<Library>
+		<Definition name="new_login_menu_btn1">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/100mei_btn_a.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+		<Definition name="new_login_menu_btn2">
+			<Group>
+				<Group d:userLabel="レイヤー 1">
+					<BitmapImage source="@Embed('../../images/user/100mei_btn_b.png')"/>
+				</Group>
+			</Group>
+		</Definition>
+	</Library>
+	<Group d:userLabel="レイヤー 1">
+		<BitmapImage source="@Embed('../../images/user/100mei_bg.png')"/>
+		<new_login_menu_btn1 x="44" y="119" d:userLabel="new_login_menu_btn1"/>
+		<new_login_menu_btn2 x="273" y="117" d:userLabel="new_login_menu_btn2"/>
+	</Group>
+</Graphic>

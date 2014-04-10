@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		height="120">
+<!--	<fx:Metadata>[HostComponent("spark.components.TextInput")]</fx:Metadata> -->
+	<fx:Metadata>[HostComponent("spark.components.RichEditableText")]</fx:Metadata>
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="disabled"/>
+		<s:State name="normalWithPrompt"/>
+		<s:State name="disabledWithPrompt"/>
+	</s:states>
+<!--
+	<s:RichText xmlns:pd="http://ns.adobe.com/xfl/2008/pd"
+				id="promptDisplay" includeIn="disabledWithPrompt,normalWithPrompt" x="0" y="0"
+				width="385" height="120" pd:antiAlias="normal" color="#000000"
+				pd:editPolicy="readWrite" pd:embedFonts="1" fontFamily="Arial" lineBreak="explicit"
+				locale="ja_JP" pd:maxChars="220" pd:multiline="0" paddingBottom="2" paddingLeft="0"
+				paddingRight="2" paddingTop="2" pd:textInstanceName="msgBox"
+				whiteSpaceCollapse="preserve">
+	</s:RichText>
+-->
+<!--	<s:RichEditableText id="textDisplay" x="0" y="0" width="385" height="120" fontFamily="ＭＳ Ｐゴシック" fontSize="17"
+						heightInLines="1" maxChars="220"/> -->
+	<s:RichEditableText id="textDisplay" x="0" y="0" width="385" height="120" fontFamily="ＭＳ Ｐゴシック" fontSize="12" backgroundColor="#ffffff"
+						paddingLeft="10" paddingTop="7"
+						maxChars="220"/>
+
+<!--	<mx:HTML htmlText="" id="textDisplay" x="0" y="0" width="385" height="120" fontFamily="ＭＳ Ｐゴシック" fontSize="12"
+			 paddingLeft="10" paddingTop="7"/>
+-->
+</s:Skin>

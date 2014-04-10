@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!---
+配信側メインクラス
+-->
+<s:Application xmlns:ATE="http://ns.adobe.com/ate/2009"
+			   xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+			   xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+			   xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:flm="http://ns.adobe.com/flame/2008"
+			   xmlns:controller="logic.controller.*"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:a="library:AmebaStudio_Flash_Common.swc"
+			   xmlns:components="components.*"
+			   xmlns:lib="assets.graphics.cast.*"
+			   xmlns:img="assets.image.cast.*"
+			   width="830" height="640">
+	<!--- スタイルシート -->
+	<fx:Style source="cast.css"/>
+
+	<fx:Declarations>
+		<!--- コントロールロジッククラス -->
+		<controller:CastLogic id="logic" />
+	</fx:Declarations>
+	
+	<!--- ステート -->
+	<s:states>
+		<s:State name="Initial" stateGroups="Group1" />
+		<s:State name="Chatting" stateGroups="Group1" />
+		<s:State name="ErrorState"/>
+		<s:State name="ChatEnd"/>
+		<s:State name="Emoji"/>
+	</s:states>
+	
+	<fx:DesignLayer d:userLabel="背景">
+		<!--- 背景 -->
+		<components:CastBG_QL_BI x="0" y="0" />
+		<s:CheckBox id="enter_chat_in" includeIn="Chatting" x="619" y="460" label="Enterで送信" selected="true"
+					color="#626262" symbolColor="#666666"/>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="ボタン">
+		<!--- 配信ボタン -->
+<!--		<s:Button id="loginBtn" x="609" y="21" buttonMode="true"
+				  skinClass="components.login_btn_ButtonSkin"
+				  visible="false"
+				  />
+-->
+		<!--- 配信終了ボタン -->
+		<s:Button id="logoutBtn" x="632" y="17" buttonMode="true"
+				  skinClass="components.logout_btnButtonSkin" />
+		
+		<!--- スピーカーON/OFFボタン -->
+		<components:AudioOnOff_Skin_ql id="volume_icon_btn" x="257" y="338"/>
+		<!--- マイクボリュームアクティブメータ -->
+		<components:whiteRect id="volumeWhiteRect" visible="true" x="283" y="345" width="80" height="5"/>
+		<!--- ボリュームバー -->
+		<lib:volume_bar id="volume_bar" d:userLabel="volume_bar" x="283" y="345" width="80"/>
+		
+		<!--- マイクボリュームアクティブメータ -->
+<!--		<components:whiteRect id="volumeWhiteRect_mic" visible="false" x="283" y="345" width="80" height="5"/>-->
+		<!--- マイクボリュームバー -->
+<!--		<lib:volume_bar id="volume_bar_mic" d:userLabel="volume_bar" visible="true" x="283" y="345"	width="80"/>-->
+		<!--- マイクボリュームつまみ -->
+		<s:Button id="volume_sound" x="359" y="338" buttonMode="true" skinClass="components.vol_mc_ButtonSkin"/>
+		
+		<!--- マイク画像ボタン -->
+		<components:MicOnOff_Skin_ql id="mic_icon_btn" x="30" y="557"/>
+		<!--- マイクONボタン -->
+		<s:Button id="mic_on_btn" d:userLabel="mic_On_ButtonSkin" visible="true" x="55" y="548"
+				  buttonMode="true" enabled="true" skinClass="components.mic_On_btn_ButtonSkin"/>
+		<!--- マイクOFFボタン -->
+		<s:Button id="mic_off_btn" d:userLabel="mic_Off_ButtonSkin" visible="false" x="55" y="548"
+				  buttonMode="true" enabled="true" skinClass="components.mic_Off_btn_ButtonSkin"/>
+		<!--- マイクボリュームアクティブメータ -->
+		<components:micActiveLevelCustomComponent id="micActiveLevel" visible="true" x="24" y="595" width="240" height="10"/>
+		
+		<!--- カメラ画像ボタン -->
+		<components:CameraOnOff_Skin_ql id="camera_icon_btn" x="147" y="557"/>
+		<!--- カメラONボタン -->
+		<s:Button id="camera_on_btn" d:userLabel="mic_On_ButtonSkin" visible="true" x="172" y="548"
+				  buttonMode="true" enabled="true" skinClass="components.camera_On_btn_ButtonSkin"/>
+		<!--- カメラOFFボタン -->
+		<s:Button id="camera_off_btn" d:userLabel="camera_Off_ButtonSkin" visible="false" x="172" y="548"
+				  buttonMode="true" enabled="true" skinClass="components.camera_Off_btn_ButtonSkin"/>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="配信画面">
+		<!--- オフライン画面 -->
+		<lib:OfflineArea_ql d:userLabel="OfflineArea" x="29" y="70"/>
+		<!--- 配信画面 -->
+		<s:VideoDisplay id="receive_video" x="29" y="70" width="336" height="252"
+						visible.Chatting="true"/>
+		<!--- テスト配信中文言 -->
+<!--		<s:Label id="testDisplay" includeIn="Testing" 
+				 fontFamily="ＭＳ Ｐゴシック" fontSize="24" paddingBottom="2"
+				 paddingLeft="2" paddingTop="3" text="テスト配信中"
+				 x="30" y="282" height="39" color="#627BF6"
+				 textAlign="right"/>-->
+		<!--- セルフオフライン画面 -->
+		<lib:OfflineArea_ql_self d:userLabel="OfflineArea" x="29" y="376"/>
+		<!--- セルフ配信画面 -->
+		<s:VideoDisplay id="receive_video_self" x="29" y="376" width="214" height="160"
+						visible.Chatting="true"/>
+	</fx:DesignLayer>
+
+	<fx:DesignLayer d:userLabel="チャット">
+		<!---チャットタイトル-->
+		<s:Label id="chatTitle" x="300" y="15" width="246" height="45" color="#303030"
+				 fontFamily="ＭＳ Ｐゴシック" fontSize="14" paddingBottom="2" paddingLeft="2"
+				 paddingTop="3" textAlign="left"/>
+		
+		<!---チャット時間-->
+		<s:RichText xmlns:pd="http://ns.adobe.com/xfl/2008/pd"
+					id="chatTime" x="155" y="336" width="81" height="20.10" pd:antiAlias="advanced"
+					color="#FFFFFF" pd:editPolicy="readSelect" pd:embedFonts="1"
+					fontFamily="ＭＳ Ｐゴシック" fontSize="14" lineBreak="explicit" locale="ja_JP"
+					pd:multiline="0" paddingBottom="2" paddingLeft="2" paddingRight="2"
+					paddingTop="3" pd:textInstanceName="ChatTime" whiteSpaceCollapse="preserve">
+			<s:content><s:span fontSize="14" kerning="off" lineHeight="100%" color="#FFFFFF" fontFamily="ＭＳ Ｐゴシック"/></s:content>
+		</s:RichText>
+		
+		<!---チャット入力-->
+		<s:TextArea id="chat_msg_box" x="422" y="483" width="384" height="120" borderVisible="false"
+					 paddingBottom="7" paddingLeft="10" paddingTop="7" text=""/>
+		<!---書き込むボタン-->
+		<s:Button id="chat_send_btn" visible="true" x="708" y="441" buttonMode="true"
+				  skinClass="components.chatmsg_send_btn_ButtonSkin"/>
+		<!---チャットメッセージ-->
+		<mx:TextArea id="chat_disp" x="400" y="66" width="406" height="360" borderVisible="false"
+					 editable="false" fontSize="14"
+					 leading="6" letterSpacing="1"/>
+		
+<!--		<s:RichEditableText id="f_richEditableText" x="394" y="422" width="306" height="31" backgroundColor="#ffffff"/>-->
+<!--		<s:TextArea id="msgarea" x="394" y="422" width="306" height="31"/>-->
+
+		<!--- ボールドボタン-->
+		<s:Button id="bold_btn" visible="true" x="427" y="453" buttonMode="true"
+				  skinClass="components.bold_btn_ButtonSkin"/>
+		<s:Button id="bold_btn_on" visible="false" x="427" y="453" buttonMode="true"
+				  skinClass="components.bold_btn_on_ButtonSkin"/>
+		<!--- 絵文字ボタン-->
+		<s:Button id="emoji_btn" visible="false" x="490" y="453" buttonMode="true"
+				  skinClass="components.emoji_btn_ButtonSkin"/>
+		<s:Button id="emoji_btn_on" visible="false" x="490" y="453" buttonMode="true"
+				  skinClass="components.emoji_btn_on_ButtonSkin"/>
+		<!--- 顔文字ボタン-->
+		<s:Button id="kao_btn" visible="true" x="458" y="453" buttonMode="true"
+				  skinClass="components.kao_btn_ButtonSkin"/>
+		<s:Button id="kao_btn_on" visible="false" x="458" y="453" buttonMode="true"
+				  skinClass="components.kao_btn_on_ButtonSkin"/>
+
+		<!--- 直近のスケジュールボタン-->
+		<s:Button id="schedule_btn_on" visible="false" x="23" y="410" buttonMode="true"
+				  skinClass="components.schedule_btn_on_ButtonSkin"/>
+		<s:Button id="schedule_btn_off" visible="false" x="23" y="410" buttonMode="true"
+				  skinClass="components.schedule_btn_off_ButtonSkin"/>
+		<!--- プロフィールボタン-->
+		<s:Button id="profile_btn_on" visible="false" enabled="false" x="156" y="409" buttonMode="true"
+				  skinClass="components.profile_btn_on_ButtonSkin"/>
+		<s:Button id="profile_btn_off" visible="false" x="156" y="409" buttonMode="true"
+				  skinClass="components.profile_btn_off_ButtonSkin"/>
+		
+		<!---　スケジュールエリア-->
+		<mx:TextArea id="schedule_disp" x="33" y="446" width="330" height="174" visible="false" borderVisible="false"
+					 editable="false" fontSize="14"/>
+		<!---　プロフィールエリア-->
+		<mx:TextArea id="profile_disp" x="33" y="446" width="330" height="174" visible="false" borderVisible="false"
+					 editable="true" fontSize="14"/>
+		
+		<!---　使い方エリア-->
+<!--		<mx:TextArea id="use_disp" x="276" y="374" width="103" height="231" borderVisible="false" editable="true" fontSize="14">-->
+<!--			<mx:VBox x="276" y="374" width="103" height="231" >-->
+<!--				<s:TileGroup id="emoji_items" width="100%" height="100%" horizontalGap="0" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" verticalGap="0">-->
+					<s:Image id="img01" x="276" y="374" source="@Embed('assets/manual.png')" buttonMode="false" />
+<!--				</s:TileGroup>-->
+<!--			</mx:VBox>-->
+<!--		</mx:TextArea>-->
+		
+		<!--- 通報するボタン -->
+		<s:Button id="tuho_btn" visible="true" x="555" y="36" buttonMode="true"
+				  skinClass="components.tsuho_btn_ButtonSkin"/>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="メニュー／アラート">
+		<!--- 配信開始メニュー -->
+<!--		<components:LoginMenu_CustomComponent id="login_menu" x="274" y="234" visible="false" />-->
+		<!--- 配信終了メニュー -->
+		<components:LogoutMenu_CustomComponent id="logout_menu" visible="false" x="194" y="234"/>
+		<!--- 追放アラート -->
+<!--		<components:KickMenu_CustomComponent id="kakuninKick_menu" x="194" y="234" visible="false" />-->
+		<!--- エラーメッセージポップアップ -->
+		<components:ErrorMessage_CustomComponent id="errorMessageBox" x="194" y="234" visible="false" />
+		<!--- ログアウトメニュー２ -->
+		<components:LogoutMenu2 id="logoutMenu2" d:userLabel="LogoutMenu2" visible="false" x="194" y="213"/>
+		<!--- 配信終了メニュー -->
+		<components:LogoutMenu_CustomComponent2 id="logout_menu2" visible="false" x="194" y="234"/>
+		<!--- 通報フォーム -->
+		<components:Report_Form id="report_form" d:userLabel="ReportForm" visible="false" x="0" y="0"/>
+	</fx:DesignLayer>
+	
+	<!-- 絵文字 -->
+	<components:Panel_Moji id="panel_moji" visible="false" x="296" y="167" width="350" height="280"/>
+	<!-- 顔文字 -->
+	<components:Panel_Kao id="panel_kao" visible="false" x="296" y="167" width="350" height="280"/>
+	
+</s:Application>

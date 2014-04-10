@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!---
+視聴側メインクラス
+-->
+<s:Application xmlns:ATE="http://ns.adobe.com/ate/2009" 
+			   xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" 
+			   xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
+			   xmlns:lib="assets.graphics.user.*" 
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:flm="http://ns.adobe.com/flame/2008" 
+			   xmlns:components="components.*"
+			   xmlns:controller="logic.controller.*"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="830" height="640">
+	
+	<!--- スタイルシート -->
+	<fx:Style source="user_uni.css"/>
+	
+	<fx:Declarations>
+		<controller:UserLogic_uni id="logic" />
+	</fx:Declarations>
+	
+	<!--- ステート -->
+	<s:states>
+		<s:State name="Initial" stateGroups="Group1"/>
+		<s:State name="Chatting" stateGroups="Group1" />
+		<s:State name="ErrorState" stateGroups="Group1"/>
+		<s:State name="ChatEnd" stateGroups="Group1"/>
+		<s:State name="TelState1" stateGroups="Group1" />
+	</s:states>
+	
+	<fx:DesignLayer d:userLabel="背景">
+		<!---背景画像-->
+		<components:UserBG_QL x="0" y="0" />                                   
+		<s:CheckBox id="enter_chat_in" includeIn="Chatting" x="619" y="460" label="Enterで送信"
+					color="#626262" symbolColor="#666666"/>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="ボタンエリア">
+		<!--- マイクONボタン -->
+		<s:Button id="mic_on_btn" d:userLabel="mic_On_ButtonSkin" visible="true" x="248" y="365"
+				  buttonMode="true" enabled="true" skinClass="components.mic_On_btn_ButtonSkin"/>
+		<!--- マイクOFFボタン -->
+		<s:Button id="mic_off_btn" d:userLabel="mic_Off_ButtonSkin" visible="false" x="248" y="365"
+				  buttonMode="true" enabled="true" skinClass="components.mic_Off_btn_ButtonSkin"/>
+		
+		<!--- ボリュームON/OFFボタン -->
+		<!-- components:VolOnOff x="33" y="369"/ -->
+		<!--- ボリューム１ボタン -->
+		<!-- s:Button id="volume1_btn" d:userLabel="volume1_ButtonSkin" x="26" y="370" buttonMode="true"
+				  enabled="false" skinClass="components.volume1_on_ButtonSkin" useHandCursor="true"/ -->
+		<!--- ボリューム２ボタン -->
+		<!-- s:Button id="volume2_btn" d:userLabel="volume2_ButtonSkin" x="76" y="370" buttonMode="true"
+				  enabled="true" skinClass="components.volume2_off_ButtonSkin" useHandCursor="true"/ -->
+		<!--- オーディオON/OFFボタン -->
+		<components:AudioOnOff_Skin_ql id="volume_icon_btn" x="262" y="368"/>
+		<!--- ボリュームバー -->
+		<lib:volume_bar id="volume_bar" d:userLabel="volume_bar" x="289" y="416" width="80"/>
+		<!--- マイクボリューム -->
+		<s:Button id="volume_mic" x="324" y="409" buttonMode="true"
+				  skinClass="components.vol_mc_ButtonSkin"/>
+		
+		<!--- 視聴終了ボタン -->
+		<s:Button id="logoutBtn" x="617" y="17" buttonMode="true" skinClass="components.logout_btnButtonSkin"/>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="視聴画面">
+		<!--- オフライン画面 -->
+		<lib:OfflineArea_ql d:userLabel="OfflineArea" x="29" y="70"/>
+		<!--- 視聴画面 -->
+		<s:VideoDisplay id="receive_video" x="29" y="70" width="336" height="252"
+						visible.Chatting="true"/>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="チャット">
+		<!---チャットタイトル-->
+		<s:Label id="chatTitle" x="310" y="15" width="300" height="45" color="#303030"
+				 fontFamily="ＭＳ Ｐゴシック" fontSize="16" paddingBottom="2" paddingLeft="2"
+				 paddingTop="3" textAlign="left"/>
+		
+		<!--- チャット時間 -->
+		<s:Label xmlns:pd="http://ns.adobe.com/xfl/2008/pd"
+				 id="chatTime" x="234" y="335" width="77" height="24" color="#000000"
+				 fontFamily="ＭＳ Ｐゴシック" fontSize="18" kerning="on" paddingBottom="2" paddingLeft="2"
+				 paddingRight="2" paddingTop="2" pd:textInstanceName="ChatTime"/>
+		
+		<!---チャット入力-->
+		<mx:TextArea id="chat_msg_box" x="422" y="483" width="385" height="120" borderVisible="false"
+					 text="" paddingBottom="7" paddingLeft="10" paddingTop="7"
+					 />
+		<!---書き込むボタン-->
+		<s:Button id="chat_send_btn" visible="true" x="708" y="441" buttonMode="true"
+				  skinClass="components.chatmsg_send_btn_ButtonSkin"/>
+		<!---チャットメッセージ-->
+		<mx:TextArea id="chat_disp" x="406" y="66" width="400" height="360" borderVisible="false"
+				 fontSize="14" 	 editable="false" />
+		
+		<!---ボールドボタン-->
+		<s:Button id="bold_btn" visible="true" x="427" y="453" buttonMode="true"
+				  skinClass="components.bold_btn_ButtonSkin"/>
+		<s:Button id="bold_btn_on" visible="false" x="427" y="453" buttonMode="true"
+				  skinClass="components.bold_btn_on_ButtonSkin"/>
+		<!---絵文字ボタン-->
+		<s:Button id="emoji_btn" visible="false" x="490" y="453" buttonMode="true"
+				  skinClass="components.emoji_btn_ButtonSkin"/>
+		<s:Button id="emoji_btn_on" visible="false" x="490" y="453" buttonMode="true"
+				  skinClass="components.emoji_btn_on_ButtonSkin"/>
+		<!---顔文字ボタン-->
+		<s:Button id="kao_btn" visible="true" x="458" y="453" buttonMode="true"
+				  skinClass="components.kao_btn_ButtonSkin"/>
+		<s:Button id="kao_btn_on" visible="false" x="458" y="453" buttonMode="true"
+				  skinClass="components.kao_btn_on_ButtonSkin"/>
+		
+		<!--- 直近のスケジュールボタン-->
+		<s:Button id="schedule_btn_on" visible="false" x="23" y="410" buttonMode="true"
+				  skinClass="components.schedule_btn_on_ButtonSkin"/>
+		<s:Button id="schedule_btn_off" visible="true" x="23" y="410" buttonMode="true"
+				  skinClass="components.schedule_btn_off_ButtonSkin"/>
+		<!--- プロフィールボタン-->
+		<s:Button id="profile_btn_on" visible="true" enabled="false" x="156" y="409" buttonMode="true"
+				  skinClass="components.profile_btn_on_ButtonSkin"/>
+		<s:Button id="profile_btn_off" visible="false" x="156" y="409" buttonMode="true"
+				  skinClass="components.profile_btn_off_ButtonSkin"/>
+		
+		<!---　スケジュールエリア-->
+		<mx:TextArea id="schedule_disp" x="33" y="446" width="330" height="174" borderVisible="false"
+					 editable="false" fontSize="14"/>
+		<!---　プロフィールエリア-->
+		<mx:TextArea id="profile_disp" x="33" y="446" width="330" height="174" borderVisible="false"
+					 editable="true" fontSize="14"/>
+		
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="ログインボタンエリア">
+		<!--- ログインメニュー -->
+<!--		<components:LoginUserMenu id="login_menu" x="0" y="39" visible="true" />-->
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer d:userLabel="メッセージエリア">
+		<!--- 確認メニュー -->
+		<components:Kakunin_User id="kakunin" x="274" y="234" visible="false" />
+		<!--- ポイントエラーメニュー -->
+		<components:PointErrMenu id="point_err_menu" x="274" y="234" visible="false" />
+		<!--- ポイントエラーメニュー２ -->
+		<components:PointErrMenu2 id="point_err_menu2" x="274" y="234" visible="false" />
+		<!--- 待機メニュー１ -->
+		<components:WaitMenu1 id="wait_menu_1" x="274" y="234" d:userLabel="WaitMenu1" visible="false"/>
+		<!--- 待機メニュー２ -->
+		<components:WaitMenu2 id="wait_menu_2" x="274" y="234" d:userLabel="WaitMenu2" visible="false"/>
+		<!--- 待機メニュー３ -->
+		<components:WaitMenu10 id="wait_menu_10" x="274" y="234" d:userLabel="WaitMenu10" visible="false"/>
+		<!--- 待ちメニュー -->
+		<components:WaitMenu9 id="wait_menu_9" x="274" y="234" d:userLabel="WaitMenu9" visible="false"/>
+		<!--- ログインエラーメニュー -->
+		<components:LoginErrMenu id="loginErrMenu" x="274" y="234" visible="false"/>
+		<!--- ログアウトメニュー -->
+		<components:LogoutMenu_CustomComponent_User id="logout_menu" x="274" y="234" visible="false" />
+		<!--- ログアウトメニュー２ -->
+		<components:LogoutMenu2 id="logoutMenu2" x="274" y="234" d:userLabel="LogoutMenu2" visible="false"/>
+		<!--- 追放メッセージアラート -->
+		<components:UserKickMessage id="userKickMessageBox" x="274" y="234" visible="false" />
+		<!--- エラーメッセージアラート -->
+		<components:ErrorMessageUser id="errorMessageBox" x="274" y="234" visible="false" />
+	</fx:DesignLayer>
+	
+	<!-- 顔文字 -->
+	<components:Panel_Kao id="panel_kao" visible="false" x="296" y="167" width="350" height="280"/>
+
+	
+</s:Application>

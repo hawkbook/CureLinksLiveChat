@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:lib="assets.graphics.cast.*"
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 width="351" height="132">
+	<fx:Script>
+		<![CDATA[
+			import logic.config.DefineNetConnection;
+			
+			protected function button_clickHandler():void
+			{
+				mx.core.FlexGlobals.topLevelApplication.currentState='ChatEnd';
+				this.visible = false;
+				navigateToURL( new URLRequest( encodeURI("http://" + DefineNetConnection.url_amebastudio + "/index.cgi")), "_self");
+			}
+		]]>
+
+	</fx:Script>
+	<lib:sym__6 d:userLabel="ErrMes" x="0" y="0"/>
+	<s:Button x="115" y="94" label="ボタン" click="button_clickHandler()" buttonMode="true"
+			  skinClass="components.alert_btn_yes_Skin"/>
+	<s:Label id="errorMess" x="12" y="26" width="326" height="60" color="#FFFFFF"
+			 fontFamily="ＭＳ Ｐゴシック" fontSize="16" text="" textAlign="center" verticalAlign="middle"/>
+</s:Group>

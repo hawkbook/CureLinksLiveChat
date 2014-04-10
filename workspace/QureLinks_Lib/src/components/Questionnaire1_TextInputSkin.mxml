@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		width="322" height="22">
+	<fx:Metadata>[HostComponent("spark.components.TextInput")]</fx:Metadata>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="disabled"/>
+		<s:State name="normalWithPrompt"/>
+		<s:State name="disabledWithPrompt"/>
+	</s:states>
+	<s:RichText xmlns:pd="http://ns.adobe.com/xfl/2008/pd"
+				id="promptDisplay" includeIn="disabledWithPrompt,normalWithPrompt" x="0" y="0"
+				width="322" height="22" pd:antiAlias="normal" color="#000000"
+				pd:editPolicy="readWrite" pd:embedFonts="1" fontFamily="Arial" lineBreak="explicit"
+				locale="ja_JP" pd:multiline="0" paddingBottom="2" paddingLeft="2" paddingRight="2"
+				paddingTop="2" pd:textInstanceName="Questionnaire1" whiteSpaceCollapse="preserve">
+	</s:RichText>
+	<s:RichEditableText id="textDisplay" x="0" y="0" width="322" fontFamily="Arial" heightInLines="1"/>
+</s:Skin>
